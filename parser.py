@@ -1,4 +1,5 @@
 #method to take in a string of sam data and output read length, read frequency, and lopsidedness
+import numpy as np
 def parseString(txt):
     spliter = re.compile('\n+')
     readnumber = re.compile('[r]+\d+')
@@ -7,7 +8,10 @@ def parseString(txt):
     forward_reads = 0
     reverse_reads = 0
     unmatched_reads = 0
-    read_lengths = []
+    read_positions = []
+    position_differences = []
+    read_lengths_count = 0;;
+    read_lengths_total = 0;;
     # tlen = []
     # read_quality_unpaired = [[]]
     # read_quality_first = [[]]
@@ -28,7 +32,9 @@ def parseString(txt):
         else:
             forward_reads += 1
         read = subline[9]
-        read_lengths.append(len(read))
+        read_lengths_count++
+        read_lengths_total += len(read)
+        read_positions.append(subline[3])
         # if(int(subline[1]) & 2 == 2): #read is paired
         #     tlen.append(abs(int(subline[8])))
         #     if(int(subline[1]) & 64 == 64):
@@ -57,4 +63,9 @@ def parseString(txt):
     # read_quality_second = read_quality_converter(read_quality_second)
     # return (forward_reads, reverse_reads, unmatched_reads, read_quality_unpaired, read_quality_first, read_quality_second, match_scores, tlen, mapq_scores)
     read_frequency = (forward_reads + reverse_reads) / (forward_reads + reverse_reads + unmatched_reads)
-    return (read_frequency, read_lengths)
+    read_lengths_average = read_lengths_total / read_lengths_count
+    read_positions.sort()
+    for i in range(len(read_positions) - 1):
+        position_differences.append(read_positions[i + 1] - read_positions[i])
+    std_dev_of_position_difference = np.std(position_differences)
+    return (read_frequency, read_lengths_average, std_dev_of_position_difference)
