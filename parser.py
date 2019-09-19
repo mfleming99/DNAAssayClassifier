@@ -1,5 +1,17 @@
 #method to take in a string of sam data and output read length, read frequency, and lopsidedness
 import numpy as np
+import sys
+import re
+
+def main(file):
+    print("############# OPENING SAM FILE #############", file=sys.stderr)
+    with open(file, 'rt') as myfile:  # Open lorem.txt for reading text
+        contents = myfile.read()
+    output = parseString(contents)
+    for i in output:
+        print(i)
+
+
 def parseString(txt):
     spliter = re.compile('\n+')
     readnumber = re.compile('[r]+\d+')
@@ -10,8 +22,9 @@ def parseString(txt):
     unmatched_reads = 0
     read_positions = []
     position_differences = []
-    read_lengths_count = 0;;
-    read_lengths_total = 0;;
+    read_lengths_count = 0
+    read_lengths_total = 0
+    read_frequency = 0
     # tlen = []
     # read_quality_unpaired = [[]]
     # read_quality_first = [[]]
@@ -32,40 +45,16 @@ def parseString(txt):
         else:
             forward_reads += 1
         read = subline[9]
-        read_lengths_count++
+        read_lengths_count += 1
         read_lengths_total += len(read)
-        read_positions.append(subline[3])
-        # if(int(subline[1]) & 2 == 2): #read is paired
-        #     tlen.append(abs(int(subline[8])))
-        #     if(int(subline[1]) & 64 == 64):
-        #       for j in range(len(subline[10]) - 1):
-        #           while(len(read_quality_first) < len(subline[10])):
-        #               read_quality_first.append([])
-        #           read_quality_first[j].append(subline[10][j])
-        #     elif(int(subline[1]) & 128 == 128):
-        #       for j in range(len(subline[10]) - 1):
-        #           while(len(read_quality_second) < len(subline[10])):
-        #               read_quality_second.append([])
-        #           read_quality_second[j].append(subline[10][j])
-        # else: #read is unpaired
-        #   for j in range(len(subline[10]) - 1):
-        #       while(len(read_quality_unpaired) < len(subline[10])):
-        #           read_quality_unpaired.append([])
-        #       read_quality_unpaired[j].append(subline[10][j])
-        #
-        # if (get_match_score):
-        #     match_scores.append(int(colon_spliter.split(subline[11])[2]))
-        #     mapq_scores.append(int(subline[4]))
-    # except:
-    # #     print("Invalid Line")
-    # read_quality_unpaired = read_quality_converter(read_quality_unpaired)
-    # read_quality_first = read_quality_converter(read_quality_first)
-    # read_quality_second = read_quality_converter(read_quality_second)
-    # return (forward_reads, reverse_reads, unmatched_reads, read_quality_unpaired, read_quality_first, read_quality_second, match_scores, tlen, mapq_scores)
-    read_frequency = (forward_reads + reverse_reads) / (forward_reads + reverse_reads + unmatched_reads)
+        read_positions.append(int(subline[3]))
+
     read_lengths_average = read_lengths_total / read_lengths_count
     read_positions.sort()
+    read_frequency = (forward_reads + reverse_reads) / (forward_reads + reverse_reads + unmatched_reads)
     for i in range(len(read_positions) - 1):
         position_differences.append(read_positions[i + 1] - read_positions[i])
     std_dev_of_position_difference = np.std(position_differences)
     return (read_frequency, read_lengths_average, std_dev_of_position_difference)
+
+main(sys.argv[1])
