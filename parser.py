@@ -49,7 +49,8 @@ def parseString(txt):
     if read_lengths_count != 0:
         read_lengths_average = read_lengths_total / read_lengths_count
     read_positions.sort()
-    read_frequency = (forward_reads + reverse_reads) / (forward_reads + reverse_reads + unmatched_reads)
+    if (forward_reads + reverse_reads + unmatched_reads) != 0:
+        read_frequency = (forward_reads + reverse_reads) / (forward_reads + reverse_reads + unmatched_reads)
     for i in range(len(read_positions) - 1):
         position_differences.append(read_positions[i + 1] - read_positions[i])
     std_dev_of_position_difference = np.std(position_differences)
