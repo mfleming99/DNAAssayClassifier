@@ -3,13 +3,12 @@ import numpy as np
 import sys
 import re
 
-def main(file):
+def parseFile(file):
     print("############# OPENING SAM FILE #############", file=sys.stderr)
     with open(file, 'rt') as myfile:  # Open lorem.txt for reading text
         contents = myfile.read()
-    output = parseString(contents)
-    for i in output:
-        print(i)
+    return parseString(contents)
+
 
 
 def parseString(txt):
@@ -47,14 +46,11 @@ def parseString(txt):
         read_lengths_count += 1
         read_lengths_total += len(read)
         read_positions.append(int(subline[3]))
-
-    if not read_lengths_count = 0:
+    if read_lengths_count != 0:
         read_lengths_average = read_lengths_total / read_lengths_count
     read_positions.sort()
     read_frequency = (forward_reads + reverse_reads) / (forward_reads + reverse_reads + unmatched_reads)
     for i in range(len(read_positions) - 1):
         position_differences.append(read_positions[i + 1] - read_positions[i])
     std_dev_of_position_difference = np.std(position_differences)
-    return (read_frequency, read_lengths_average, std_dev_of_position_difference)
-
-main(sys.argv[1])
+    return [read_frequency, read_lengths_average, std_dev_of_position_difference]
