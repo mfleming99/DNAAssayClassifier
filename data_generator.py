@@ -35,7 +35,6 @@ def run_bowtie(contents):
         data = parseFile("temp.sam")
         for value in data:
             contents[i].append(value)
-        break
     print("############# FINISHED SEQUENCING #############", file=sys.stderr)
 
 main(sys.argv[1])
