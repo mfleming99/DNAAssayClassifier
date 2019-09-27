@@ -7,7 +7,7 @@ import csv
 import random
 import numpy as np
 reads_to_be_analized = 10000
-reads_per_random_index = 5
+reads_per_random_index = 10000
 
 def main(cvs_file, gtf_file):
 
@@ -64,14 +64,14 @@ def run_bowtie(contents, frequency_tree):
 
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
 
-        number_of_spots = get_spots(contents[i][0])
+        number_of_spots = 1#get_spots(contents[i][0])
         for j in range(reads_to_be_analized//reads_per_random_index):
             subprocess.call(["bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0], ">>", "temp.sam"])
 
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
 
-        data = parseFile("temp.sam")
-        subprocess.call("rm temp.sam")
+        data = parseFile("temp.sam", frequency_tree)
+        subprocess.call("rm temp.sam", shell=True)
         for value in data:
             contents[i].append(value)
 
