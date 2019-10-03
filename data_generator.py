@@ -1,4 +1,4 @@
-# from parser import parseFile
+from parser import parseFile #COMMENT THIS LINE OUT IF YOU WANT TO RUN PARSER AS MAIN
 from ncls import NCLS
 from collections import defaultdict
 import sys

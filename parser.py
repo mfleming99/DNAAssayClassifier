@@ -1,6 +1,6 @@
 #method to take in a string of sam data and output read length, read frequency, and lopsidedness
 from collections import defaultdict
-from data_generator import handle_gtf
+# from data_generator import handle_gtf #UNCOMMENT THIS LINE IF YOU WANT TO RUN PARSER AS MAIN
 import numpy as np
 import sys
 import re
