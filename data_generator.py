@@ -1,4 +1,4 @@
-from parser import parseFile
+# from parser import parseFile
 from ncls import NCLS
 from collections import defaultdict
 import sys
@@ -9,14 +9,14 @@ import numpy as np
 reads_to_be_analized = 10000
 reads_per_random_index = 10000
 
-def main(cvs_file, gtf_file):
+def main(csv_file, gtf_file):
 
     print("############# STARTING", file=sys.stderr)
     print("############# STARTING CONSTURCTING FREQUENCY TREE", file=sys.stderr)
     frequency_trees = handle_gtf(gtf_file)
     print("############# ENDING CONSTURCTING FREQUENCY TREE", file=sys.stderr)
     print("############# STARTING HANDLEING CSV", file=sys.stderr)
-    data = handle_csv(cvs_file)
+    data = handle_csv(csv_file)
     print("############# FINSHING HANDLEING CSV", file=sys.stderr)
     print("############# BEGINING SEQUENCING", file=sys.stderr)
     run_bowtie(data, frequency_trees)
@@ -80,4 +80,5 @@ def get_spots(sra_label):
     query_result = subprocess.check_output("esearch -db sra -query " +  sra_label  +  " | efetch -format runinfo", shell=True)
     return int((query_result.decode().split('\n')[1]).split(',')[3])
 
-main(sys.argv[1], sys.argv[2])
+if __name__ == '__main__':
+    main(sys.argv[1], sys.argv[2])
