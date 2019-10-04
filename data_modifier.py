@@ -19,18 +19,18 @@ def make_data_lists_for_assay_type(sra_outputs):
     max_position_difference_list = []
     min_position_difference_list = []
 
-    for output in sra_output:
-        gene_annotation_percent_list.append(sra_outputs[0])
-        read_length_list.append(sra_outputs[1])
-        frequency_list.append(sra_outputs[2])
-        mean_of_stdv_list.append(sra_outputs[3])
-        mean_of_pos_diffs.append(sra_outputs[4])
-        num_of_chromosomes_list.append(sra_outputs[5])
-        max_stdv_list.append(sra_outputs[6])
-        min_stdv_list.append(sra_outputs[7])
-        max_position_difference_list.append(sra_outputs[8])
-        min_position_difference_list.append(sra_outputs[9])
-    return [gene_annotation_percent_list, read_length_list, frequency_list, mean_of_stdv_list, mean_of_pos_diffs, num_chromosomes, max_stdv_list, min_stdv_list, max_position_difference_list, min_position_difference_list]
+    for output in sra_outputs:
+        gene_annotation_percent_list.append(output[0])
+        read_length_list.append(output[1])
+        frequency_list.append(output[2])
+        mean_of_stdv_list.append(output[3])
+        mean_of_pos_diff_list.append(output[4])
+        num_of_chromosomes_list.append(output[5])
+        max_stdv_list.append(output[6])
+        min_stdv_list.append(output[7])
+        max_position_difference_list.append(output[8])
+        min_position_difference_list.append(output[9])
+    return [gene_annotation_percent_list, read_length_list, frequency_list, mean_of_stdv_list, mean_of_pos_diff_list, num_of_chromosomes_list, max_stdv_list, min_stdv_list, max_position_difference_list, min_position_difference_list]
 
 def make_pairings_for_scatter(data_lists):
     gene_annotation_percent_list = data_lists[0]
@@ -47,8 +47,8 @@ def make_pairings_for_scatter(data_lists):
     gene_length = (gene_annotation_percent_list, read_length_list)
     gene_freq = (gene_annotation_percent_list, frequency_list)
     gene_stdvm = (gene_annotation_percent_list, mean_of_stdv_list)
-    gene_pdm = (gene_annotation_percent_list, mean_of_pos_diffs)
-    gene_chrom = (gene_annotation_percent_list, num_chromosomes)
+    gene_pdm = (gene_annotation_percent_list, mean_of_pos_diff_list)
+    gene_chrom = (gene_annotation_percent_list, num_of_chromosomes_list)
     gene_max_stdv = (gene_annotation_percent_list, max_stdv_list)
     gene_min_stdv = (gene_annotation_percent_list, min_stdv_list)
     gene_max_posdiff = (gene_annotation_percent_list, max_position_difference_list)

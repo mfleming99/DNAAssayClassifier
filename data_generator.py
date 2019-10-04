@@ -7,24 +7,6 @@ import csv
 import random
 import numpy as np
 
-def main(csv_file, gtf_file):
-
-    print("############# STARTING", file=sys.stderr)
-    print("############# STARTING CONSTURCTING FREQUENCY TREE", file=sys.stderr)
-    frequency_trees = handle_gtf(gtf_file)
-    print("############# ENDING CONSTURCTING FREQUENCY TREE", file=sys.stderr)
-    print("############# STARTING HANDLING CSV", file=sys.stderr)
-    data = handle_csv(csv_file)
-    print("############# FINSHING HANDLING CSV", file=sys.stderr)
-    print("############# BEGINING SEQUENCING", file=sys.stderr)
-    run_bowtie(data, frequency_trees)
-    print("############# FINISHED SEQUENCING", file=sys.stderr)
-    print("############# FINSHING", file=sys.stderr)
-    with open("data_output.csv","w+") as my_csv:
-        csvWriter = csv.writer(my_csv,delimiter=',')
-        csvWriter.writerows(data)
-
-
 def handle_csv(file):
     datafile = open(file, 'r')
     datareader = csv.reader(datafile, delimiter=',')
@@ -60,7 +42,7 @@ def handle_gtf(file):
 def run_bowtie(contents, frequency_tree):
     reads_to_be_analized = 10000
     reads_per_random_index = 10000
-    ouputs = []
+    outputs = []
     for i in range(len(contents)):
 
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
@@ -81,6 +63,3 @@ def get_spots(sra_label):
     print(sra_label)
     query_result = subprocess.check_output("esearch -db sra -query " +  sra_label  +  " | efetch -format runinfo", shell=True)
     return int((query_result.decode().split('\n')[1]).split(',')[3])
-
-if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2])

@@ -1,17 +1,7 @@
-#method to take in a string of sam data and output read length, read frequency, and lopsidedness
 from collections import defaultdict
-# from data_generator import handle_gtf #UNCOMMENT THIS LINE IF YOU WANT TO RUN PARSER AS MAIN
 import numpy as np
 import sys
 import re
-
-def main(argv):
-    sam_file = argv[0]
-    gtf_file = argv[1]
-    frequency_tree = handle_gtf(gtf_file)
-    result = parseFile(sam_file, frequency_tree)
-    print(result)
-
 
 def parseFile(file, frequency_tree):
     print("############# OPENING SAM FILE", file=sys.stderr)
@@ -37,12 +27,6 @@ def parseString(txt, frequency_tree):
     read_frequency = 0
     read_lengths_average = 0
     num_chromosomes = 0
-    # tlen = []
-    # read_quality_unpaired = [[]]
-    # read_quality_first = [[]]
-    # read_quality_second = [[]]
-    # match_scores = []
-    # mapq_scores = []
 
     lines = spliter.split(txt)
     #Itterating though everyline
@@ -64,10 +48,6 @@ def parseString(txt, frequency_tree):
         read_lengths_average = read_lengths_total / read_lengths_count
     if (forward_reads + reverse_reads + unmatched_reads) != 0:
         read_frequency = (forward_reads + reverse_reads) / (forward_reads + reverse_reads + unmatched_reads)
-    # read_positions.sort()
-    # for i in range(len(read_positions) - 1):
-    #     position_differences.append(read_positions[i + 1] - read_positions[i])
-    # std_dev_of_position_difference = np.std(position_differences)
 
     gene_annotation_match = 0
     gene_annotation_total = 0
@@ -108,6 +88,3 @@ def getChromosome(str):
         return int(str[3:])
     except:
         return -1
-
-if __name__ == '__main__':
-  main(sys.argv[1:])
