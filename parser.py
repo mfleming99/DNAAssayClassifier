@@ -99,7 +99,7 @@ def parseString(txt, frequency_tree):
     min_stdv = np.nanmin(position_differences_stdv_list)
     max_position_difference = np.amax(total_position_diffs)
     min_position_difference = np.amin(total_position_diffs)
-    return [read_frequency, read_lengths_average, gene_annotation_percent, mean_of_stdv_per_chromosome, mean_of_pos_diffs, num_chromosomes,position_differences_stdv_list]
+    return [gene_annotation_percent, read_lengths_average, read_frequency, mean_of_stdv_per_chromosome, mean_of_pos_diffs, num_chromosomes, max_stdv, min_stdv, max_position_difference, min_position_difference, position_differences_stdv_list]
 
 def getChromosome(str):
     if str == "*" or str[3:] == 'X':

@@ -15,9 +15,9 @@ def main(csv_file, gtf_file):
     print("############# STARTING CONSTURCTING FREQUENCY TREE", file=sys.stderr)
     frequency_trees = handle_gtf(gtf_file)
     print("############# ENDING CONSTURCTING FREQUENCY TREE", file=sys.stderr)
-    print("############# STARTING HANDLEING CSV", file=sys.stderr)
+    print("############# STARTING HANDLING CSV", file=sys.stderr)
     data = handle_csv(csv_file)
-    print("############# FINSHING HANDLEING CSV", file=sys.stderr)
+    print("############# FINSHING HANDLING CSV", file=sys.stderr)
     print("############# BEGINING SEQUENCING", file=sys.stderr)
     run_bowtie(data, frequency_trees)
     print("############# FINISHED SEQUENCING", file=sys.stderr)
@@ -66,7 +66,7 @@ def run_bowtie(contents, frequency_tree):
 
         number_of_spots = 1#get_spots(contents[i][0])
         for j in range(reads_to_be_analized//reads_per_random_index):
-            subprocess.call(["bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0], ">>", "temp.sam"])
+            subprocess.call(["../bt2/bowtie2/bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0], ">>", "temp.sam"])
 
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
 
