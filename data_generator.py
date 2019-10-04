@@ -6,8 +6,6 @@ import subprocess
 import csv
 import random
 import numpy as np
-reads_to_be_analized = 10000
-reads_per_random_index = 10000
 
 def main(csv_file, gtf_file):
 
@@ -60,6 +58,9 @@ def handle_gtf(file):
     return frequency_trees
 
 def run_bowtie(contents, frequency_tree):
+    reads_to_be_analized = 10000
+    reads_per_random_index = 10000
+    ouputs = []
     for i in range(len(contents)):
 
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
@@ -69,11 +70,12 @@ def run_bowtie(contents, frequency_tree):
             subprocess.call(["../bt2/bowtie2/bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0], ">>", "temp.sam"])
 
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
-
         data = parseFile("temp.sam", frequency_tree)
+        outputs.append(data)
         subprocess.call("rm temp.sam", shell=True)
         for value in data:
             contents[i].append(value)
+    return outputs
 
 def get_spots(sra_label):
     print(sra_label)

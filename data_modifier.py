@@ -7,10 +7,6 @@ import numpy as np
 #pass the three lists of 15 pairings into plot maker
 # make the plots
 
-
-# given list of outputs from PARSER
-# make a list of read_freqs
-# make a list of
 def make_data_lists_for_assay_type(sra_outputs):
     frequency_list = []
     read_length_list = []
@@ -24,16 +20,16 @@ def make_data_lists_for_assay_type(sra_outputs):
     min_position_difference_list = []
 
     for output in sra_output:
-        gene_annotation_percent_list.append(output[0])
-        read_length_list.append(output[1])
-        frequency_list.append(output[2])
-        mean_of_stdv_list.append(output[3])
-        mean_of_pos_diffs.append(output[4])
-        num_of_chromosomes_list.append(ouput[5])
-        max_stdv_list.append(ouput[6])
-        min_stdv_list.append(ouput[7])
-        max_position_difference_list.append(ouput[8])
-        min_position_difference_list.append(ouput[9])
+        gene_annotation_percent_list.append(sra_outputs[0])
+        read_length_list.append(sra_outputs[1])
+        frequency_list.append(sra_outputs[2])
+        mean_of_stdv_list.append(sra_outputs[3])
+        mean_of_pos_diffs.append(sra_outputs[4])
+        num_of_chromosomes_list.append(sra_outputs[5])
+        max_stdv_list.append(sra_outputs[6])
+        min_stdv_list.append(sra_outputs[7])
+        max_position_difference_list.append(sra_outputs[8])
+        min_position_difference_list.append(sra_outputs[9])
     return [gene_annotation_percent_list, read_length_list, frequency_list, mean_of_stdv_list, mean_of_pos_diffs, num_chromosomes, max_stdv_list, min_stdv_list, max_position_difference_list, min_position_difference_list]
 
 def make_pairings_for_scatter(data_lists):
