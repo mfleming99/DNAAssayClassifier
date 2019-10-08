@@ -37,7 +37,7 @@ def main(csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
         csvWriter.writerows(data)
 
     print("############# STARTING HANDLING CSV mRNA", file=sys.stderr)
-    data = handle_csv(csv_file_wgs)
+    data = handle_csv(csv_file_mrna)
     print("############# FINSHING HANDLING CSV mRNA", file=sys.stderr)
     print("############# BEGINING SEQUENCING mRNA", file=sys.stderr)
     output_data_mrna = run_bowtie(data, frequency_trees)
