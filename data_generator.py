@@ -29,8 +29,9 @@ def handle_gtf(file):
         try:
             chr = int(line[0])
             try:
-                frequency_trees[chr][0].append(int(line[3]))
-                frequency_trees[chr][1].append(int(line[4]))
+                if (line[2] != 'transcript'):
+                    frequency_trees[chr][0].append(int(line[3]))
+                    frequency_trees[chr][1].append(int(line[4]))
             except:
                 print("Lol we have a real problem")
         except:
@@ -45,13 +46,13 @@ def run_bowtie(contents, frequency_tree):
     outputs = []
     for i in range(len(contents)):
 
-        print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
+        print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
 
-        number_of_spots = 1#get_spots(contents[i][0])
+        number_of_spots = 1000#get_spots(contents[i][0])
         for j in range(reads_to_be_analized//reads_per_random_index):
             subprocess.call(["../bt2/bowtie2/bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0], ">>", "temp.sam"])
 
-        print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file=sys.stderr)
+        print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         data = parseFile("temp.sam", frequency_tree)
         outputs.append(data)
         subprocess.call("rm temp.sam", shell=True)

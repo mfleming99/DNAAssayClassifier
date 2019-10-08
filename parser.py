@@ -55,7 +55,7 @@ def parseString(txt, frequency_tree):
     for key in read_positions.keys():
         for position in read_positions[key]:
             #TODO there is for sure a better way to do this than with a break
-            for j in frequency_tree[key].find_overlap(position, position):
+            for _ in frequency_tree[key].find_overlap(position, position):
                 gene_annotation_match += 1
                 break
             gene_annotation_total += 1
@@ -68,18 +68,12 @@ def parseString(txt, frequency_tree):
         num_chromosomes += 1
         for i in range(len(position_list) - 1):
             position_differences.append(position_list[i + 1] - position_list[i])
-            total_position_diffs.append(position_list[i + 1] - position_list[i])
-        std_dev_of_position_difference = np.std(position_differences)
-        position_differences_stdv_list.append(std_dev_of_position_difference)
-        position_differences.clear()
 
-    mean_of_stdv_per_chromosome = np.nanmean(position_differences_stdv_list)
-    mean_of_pos_diffs = np.nanmean(total_position_diffs)
-    max_stdv = np.nanmax(position_differences_stdv_list)
-    min_stdv = np.nanmin(position_differences_stdv_list)
-    max_position_difference = np.amax(total_position_diffs)
-    min_position_difference = np.amin(total_position_diffs)
-    return [gene_annotation_percent, read_lengths_average, read_frequency, mean_of_stdv_per_chromosome, mean_of_pos_diffs, num_chromosomes, max_stdv, min_stdv, max_position_difference, min_position_difference, position_differences_stdv_list]
+    std_of_pos_diff = np.std(position_differences)
+    mean_of_pos_diffs = np.nanmean(position_differences)
+    max_position_difference = np.amax(position_differences)
+    min_position_difference = np.amin(position_differences)
+    return [gene_annotation_percent, read_lengths_average, read_frequency, std_of_pos_diff, mean_of_pos_diffs, num_chromosomes, max_position_difference, min_position_difference]
 
 def getChromosome(str):
     if str == "*" or str[3:] == 'X':
