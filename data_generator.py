@@ -45,12 +45,11 @@ def run_bowtie(contents, frequency_tree):
     reads_per_random_index = 10000
     outputs = []
     for i in range(len(contents)):
-
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
 
         number_of_spots = 1000#get_spots(contents[i][0])
         for j in range(reads_to_be_analized//reads_per_random_index):
-            subprocess.call(["../bt2/bowtie2/bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0], ">>", "temp.sam"])
+            subprocess.call(["../bt2/bowtie2/bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][1], ">>", "temp.sam"])
 
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         data = parseFile("temp.sam", frequency_tree)
