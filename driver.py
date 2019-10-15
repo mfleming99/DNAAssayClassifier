@@ -1,10 +1,11 @@
+from argument_parser import get_args
 from data_generator import handle_gtf, handle_csv, run_bowtie
 from data_modifier import make_data_lists_for_assay_type, make_pairings_for_scatter
 from plot_maker import make_each_scatterplot
 import sys
 import csv
 
-def main(csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
+def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     print("############# STARTING", file=sys.stderr)
     print("############# STARTING CONSTURCTING FREQUENCY TREE", file=sys.stderr)
     frequency_trees = handle_gtf(gtf_file)
@@ -14,7 +15,7 @@ def main(csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     data = handle_csv(csv_file_wgs)
     print("############# FINSHING HANDLING CSV WGS", file=sys.stderr)
     print("############# BEGINING SEQUENCING WGS", file=sys.stderr)
-    output_data_wgs = run_bowtie(data, frequency_trees)
+    output_data_wgs = run_bowtie(bowtie_index, data, frequency_trees)
     data_lists_wgs = make_data_lists_for_assay_type(output_data_wgs)
     pairings_wgs = make_pairings_for_scatter(data_lists_wgs)
     print("############# FINISHED SEQUENCING WGS", file=sys.stderr)
@@ -27,7 +28,7 @@ def main(csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     data = handle_csv(csv_file_srna)
     print("############# FINSHING HANDLING CSV SMALL RNA", file=sys.stderr)
     print("############# BEGINING SEQUENCING SMALL RNA", file=sys.stderr)
-    output_data_srna = run_bowtie(data, frequency_trees)
+    output_data_srna = run_bowtie(bowtie_index, data, frequency_trees)
     data_lists_srna = make_data_lists_for_assay_type(output_data_srna)
     pairings_srna = make_pairings_for_scatter(data_lists_srna)
     print("############# FINISHED SEQUENCING SMALL RNA", file=sys.stderr)
@@ -40,7 +41,7 @@ def main(csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     data = handle_csv(csv_file_mrna)
     print("############# FINSHING HANDLING CSV mRNA", file=sys.stderr)
     print("############# BEGINING SEQUENCING mRNA", file=sys.stderr)
-    output_data_mrna = run_bowtie(data, frequency_trees)
+    output_data_mrna = run_bowtie(bowtie_index, data, frequency_trees)
     data_lists_mrna = make_data_lists_for_assay_type(output_data_mrna)
     pairings_mrna = make_pairings_for_scatter(data_lists_mrna)
     print("############# FINISHED SEQUENCING mRNA", file=sys.stderr)
@@ -54,4 +55,5 @@ def main(csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     print("DONE")
 
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
+    args = get_args()
+    main(args.index, args.wgs, args.srna, args.mrna, args.gtf)
