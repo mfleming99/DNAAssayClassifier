@@ -8,14 +8,12 @@ import numpy as np
 # make the plots
 
 def make_data_lists_for_assay_type(sra_outputs):
-    frequency_list = []
-    read_length_list = []
     gene_annotation_percent_list = []
-    mean_of_stdv_list = []
+    read_length_list = []
+    frequency_list = []
+    std_of_pos_diff_list = []
     mean_of_pos_diff_list = []
     num_of_chromosomes_list = []
-    max_stdv_list = []
-    min_stdv_list = []
     max_position_difference_list = []
     min_position_difference_list = []
 
@@ -23,34 +21,28 @@ def make_data_lists_for_assay_type(sra_outputs):
         gene_annotation_percent_list.append(output[0])
         read_length_list.append(output[1])
         frequency_list.append(output[2])
-        mean_of_stdv_list.append(output[3])
+        std_of_pos_diff_list.append(output[3])
         mean_of_pos_diff_list.append(output[4])
         num_of_chromosomes_list.append(output[5])
-        max_stdv_list.append(output[6])
-        min_stdv_list.append(output[7])
-        max_position_difference_list.append(output[8])
-        min_position_difference_list.append(output[9])
-    return [gene_annotation_percent_list, read_length_list, frequency_list, mean_of_stdv_list, mean_of_pos_diff_list, num_of_chromosomes_list, max_stdv_list, min_stdv_list, max_position_difference_list, min_position_difference_list]
+        max_position_difference_list.append(output[6])
+        min_position_difference_list.append(output[7])
+    return [gene_annotation_percent_list, read_length_list, frequency_list, std_of_pos_diff_list, mean_of_pos_diff_list, num_of_chromosomes_list, max_position_difference_list, min_position_difference_list]
 
 def make_pairings_for_scatter(data_lists):
     gene_annotation_percent_list = data_lists[0]
     read_length_list = data_lists[1]
     frequency_list = data_lists[2]
-    mean_of_stdv_list = data_lists[3]
+    stdv_list = data_lists[3]
     mean_of_pos_diff_list = data_lists[4]
     num_of_chromosomes_list = data_lists[5]
-    max_stdv_list = data_lists[6]
-    min_stdv_list = data_lists[7]
-    max_position_difference_list = data_lists[8]
-    min_position_difference_list = data_lists[9]
+    max_position_difference_list = data_lists[6]
+    min_position_difference_list = data_lists[7]
 
     gene_length = (gene_annotation_percent_list, read_length_list)
     gene_freq = (gene_annotation_percent_list, frequency_list)
-    gene_stdvm = (gene_annotation_percent_list, mean_of_stdv_list)
+    gene_stdv = (gene_annotation_percent_list, stdv_list)
     gene_pdm = (gene_annotation_percent_list, mean_of_pos_diff_list)
     gene_chrom = (gene_annotation_percent_list, num_of_chromosomes_list)
-    gene_max_stdv = (gene_annotation_percent_list, max_stdv_list)
-    gene_min_stdv = (gene_annotation_percent_list, min_stdv_list)
     gene_max_posdiff = (gene_annotation_percent_list, max_position_difference_list)
     gene_min_posdiff = (gene_annotation_percent_list, min_position_difference_list)
 
@@ -68,4 +60,4 @@ def make_pairings_for_scatter(data_lists):
     #
     # pdm_chrom = (mean_of_pos_diff_list, num_chromosomes)
 
-    return [gene_length, gene_freq, gene_stdvm, gene_pdm, gene_chrom, gene_max_stdv, gene_min_stdv, gene_max_posdiff, gene_min_posdiff]
+    return [gene_length, gene_freq, gene_stdv, gene_pdm, gene_chrom, gene_max_posdiff, gene_min_posdiff]

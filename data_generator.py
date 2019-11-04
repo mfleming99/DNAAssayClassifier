@@ -33,34 +33,30 @@ def handle_gtf(file):
                     frequency_trees[chr][0].append(int(line[3]))
                     frequency_trees[chr][1].append(int(line[4]))
             except:
-                print("Lol we have a real problem")
+                print("This shouldn't happen - GTF handleing is wrong")
         except:
-            print("Chromosome was non-integer")
+            pass
+            #print("Chromosome was non-integer")
     for key in frequency_trees.keys():
         frequency_trees[key] = NCLS(np.array(frequency_trees[key][0]), np.array(frequency_trees[key][1]), np.array(frequency_trees[key][0]))
     return frequency_trees
 
-def run_bowtie(contents, frequency_tree):
+def run_bowtie(bowtie_index, contents, frequency_tree):
     reads_to_be_analized = 10000
-    reads_per_random_index = 10000
+    reads_per_random_index = 50
     outputs = []
     for i in range(len(contents)):
-
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
-
-        number_of_spots = 1000#get_spots(contents[i][0])
-        for j in range(reads_to_be_analized//reads_per_random_index):
-            subprocess.call(["../bt2/bowtie2/bowtie2", "-x", "human","--skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0], ">>", "temp.sam"])
-
+        subprocess.call(["/software/bowtie2/bowtie2-align-s", "-x", bowtie_index, "--sra-acc", contents[i][0], "-sample-sra", str(reads_to_be_analized) , "--treads", "4", ">> temp.sam", shell=True)
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         data = parseFile("temp.sam", frequency_tree)
+        subprocess.call(["rm temp.sam"], shell=True)
         outputs.append(data)
-        subprocess.call("rm temp.sam", shell=True)
         for value in data:
             contents[i].append(value)
     return outputs
 
-def get_spots(sra_label):
-    print(sra_label)
-    query_result = subprocess.check_output("esearch -db sra -query " +  sra_label  +  " | efetch -format runinfo", shell=True)
-    return int((query_result.decode().split('\n')[1]).split(',')[3])
+# def get_spots(sra_label):
+#     print(sra_label)
+#     query_result = subprocess.check_output("esearch -db sra -query " +  sra_label  +  " | efetch -format runinfo", shell=True)
+#     return int((query_result.decode().split('\n')[1]).split(',')[3])
