@@ -68,11 +68,13 @@ def parseString(txt, frequency_tree):
         num_chromosomes += 1
         for i in range(len(position_list) - 1):
             position_differences.append(position_list[i + 1] - position_list[i])
-
-    std_of_pos_diff = np.std(position_differences)
-    mean_of_pos_diffs = np.nanmean(position_differences)
-    max_position_difference = np.amax(position_differences)
-    min_position_difference = np.amin(position_differences)
+    try:
+        std_of_pos_diff = np.std(position_differences)
+        mean_of_pos_diffs = np.nanmean(position_differences)
+        max_position_difference = np.amax(position_differences)
+        min_position_difference = np.amin(position_differences)
+    except:
+        return None
     return [gene_annotation_percent, read_lengths_average, read_frequency, std_of_pos_diff, mean_of_pos_diffs, num_chromosomes, max_position_difference, min_position_difference]
 
 def getChromosome(str):
