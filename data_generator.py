@@ -48,7 +48,7 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
     for i in range(len(contents)):
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         print(bowtie_index)
-        subprocess.call(["/software/bowtie2/bowtie2 --help"], shell=True)
+        subprocess.call(["/software/bowtie2/bowtie2 -x " + bowtie_index,  shell=True)
         # subprocess.call(["/software/bowtie2/bowtie2", "-x", bowtie_index, "--sra-acc", contents[i][0], "-sample-sra", str(reads_to_be_analized) , "--treads", "4", ">>", "/root/temp.sam"], shell=True)
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         data = parseFile("/root/temp.sam", frequency_tree)
