@@ -46,15 +46,12 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
     reads_per_random_index = 50
     outputs = []
     for i in range(len(contents)):
-        #REMEMBER TO REMOVE THIS
-        if i == 200:
-            break
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
 
         number_of_spots = get_spots(contents[i][1]) - reads_per_random_index - 1
         commands = []
         for j in range(reads_to_be_analized//reads_per_random_index):
-            commands.append(["time", "bowtie2", "-x ", bowtie_index, " --skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][1], ">>", "temp" + str(j) +".sam"])
+            commands.append(["bowtie2", "--quiet", "-x ", bowtie_index, " --skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][1], ">>", "temp" + str(j) +".sam"])
             #subprocess.call(["time", "bowtie2", "-x ", bowtie_index, " --skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0],"--threads", str(20), ">>", "temp.sam"])
         procs = [subprocess.Popen(i) for i in commands]
         for p in procs:
