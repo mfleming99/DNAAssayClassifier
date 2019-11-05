@@ -47,28 +47,19 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
     outputs = []
     for i in range(len(contents)):
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
-
-        number_of_spots = get_spots(contents[i][1]) - reads_per_random_index - 1
-        commands = []
-        for j in range(reads_to_be_analized//reads_per_random_index):
-            commands.append(["bowtie2", "--quiet", "-x ", bowtie_index, " --skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][1], ">>", "temp" + str(j) +".sam"])
-            #subprocess.call(["time", "bowtie2", "-x ", bowtie_index, " --skip", str(random.randint(0, number_of_spots)),"--mm", "--upto", str(reads_per_random_index), "--no-hd", "--sra-acc", contents[i][0],"--threads", str(20), ">>", "temp.sam"])
-        procs = [subprocess.Popen(i) for i in commands]
-        for p in procs:
-            p.wait()
-        print("###TERM###")
-        subprocess.call(["cat *.sam > temp.sam"], shell=True)
+        print(bowtie_index)
+        subprocess.call(["/software/bowtie2/bowtie2 -x /root/indexes/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.bowtie_index --sra-acc " + contents[i][0]],  shell=True)
+        # subprocess.call(["/software/bowtie2/bowtie2 -x " + bowtie_index + " --sra-acc " + contents[i][0] + " -sample-sra " + str(reads_to_be_analized) + " -- threads 4 >> /root/temp.sam"],  shell=True)
+        # subprocess.call(["/software/bowtie2/bowtie2", "-x", bowtie_index, "--sra-acc", contents[i][0], "-sample-sra", str(reads_to_be_analized) , "--treads", "4", ">>", "/root/temp.sam"], shell=True)
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
-        data = parseFile("temp.sam", frequency_tree)
-        subprocess.call(["rm *.sam"], shell=True)
-        if data is not None:
-            outputs.append(data)
-        #subprocess.call("rm *.sam", shell=True)
+        data = parseFile("/root/temp.sam", frequency_tree)
+        subprocess.call(["rm temp.sam"], shell=True)
+        outputs.append(data)
         for value in data:
             contents[i].append(value)
     return outputs
 
-def get_spots(sra_label):
-    print(sra_label)
-    query_result = subprocess.check_output("esearch -db sra -query " +  sra_label  +  " | efetch -format runinfo", shell=True)
-    return int((query_result.decode().split('\n')[1]).split(',')[3])
+# def get_spots(sra_label):
+#     print(sra_label)
+#     query_result = subprocess.check_output("esearch -db sra -query " +  sra_label  +  " | efetch -format runinfo", shell=True)
+#     return int((query_result.decode().split('\n')[1]).split(',')[3])
