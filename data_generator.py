@@ -48,7 +48,7 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
     outputs = []
     for i in range(len(contents)):
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
-        args = shlex.split("/software/bowtie2/bowtie2 -x " + bowtie_index + " --sra-acc " + contents[i][0] + " -sample-sra " + str(reads_to_be_analized) + " --threads 4 >> /root/temp.sam")
+        args = shlex.split("/software/bowtie2/bowtie2 -x /root/indexes/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.bowtie_index --sra-acc " + contents[i][0] + " -sample-sra " + str(reads_to_be_analized) + " --threads 4 >> /root/temp.sam")
         subprocess.call(args,  shell=True)
         # subprocess.call(["/software/bowtie2/bowtie2 -x " + bowtie_index + " --sra-acc " + contents[i][0] + " -sample-sra " + str(reads_to_be_analized) + " -- threads 4 >> /root/temp.sam"],  shell=True)
         # subprocess.call(["/software/bowtie2/bowtie2", "-x", bowtie_index, "--sra-acc", contents[i][0], "-sample-sra", str(reads_to_be_analized) , "--treads", "4", ">>", "/root/temp.sam"], shell=True)
