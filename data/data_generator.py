@@ -43,13 +43,13 @@ def handle_gtf(file):
     return frequency_trees
 
 def run_bowtie(bowtie_index, contents, frequency_tree):
-    reads_to_be_analyzed = 10
+    reads_to_be_analyzed = 3
     reads_per_random_index = 50
     outputs = []
     for i in range(len(contents)):
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
-        args = shlex.split("/software/bowtie2/bowtie2 -x " +  bowtie_index + " --sra-acc " + contents[i][1] + " -U " + str(reads_to_be_analyzed) +  " -sample-sra " + str(reads_to_be_analyzed) + " --threads 4 -S /root/temp.sam")
+        args = shlex.split("/software/bowtie2/bowtie2 -x " +  bowtie_index + " --sra-acc " + contents[i][1] + " --sample-sra " + str(reads_to_be_analyzed) + " --threads 4 -S /root/temp.sam")
         print("ARGS = " + str(args))
         subprocess.call(args,  shell=True)
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
