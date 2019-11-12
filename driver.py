@@ -50,9 +50,9 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerows(data)
 
-    print("############# MAKING SCATTERPLOTS")
-    make_each_scatterplot(pairings_wgs, pairings_srna, pairings_mrna)
-    print("DONE")
+#     print("############# MAKING SCATTERPLOTS")
+#     make_each_scatterplot(pairings_wgs, pairings_srna, pairings_mrna)
+#     print("DONE")
 
 if __name__ == '__main__':
     args = get_args()
