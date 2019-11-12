@@ -43,7 +43,7 @@ def handle_gtf(file):
     return frequency_trees
 
 def run_bowtie(bowtie_index, contents, frequency_tree):
-    reads_to_be_analyzed = 2500
+    reads_to_be_analyzed = 2
     outputs = []
     for i in range(2):
 #     for i in range(len(contents)):
