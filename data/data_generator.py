@@ -43,8 +43,7 @@ def handle_gtf(file):
     return frequency_trees
 
 def run_bowtie(bowtie_index, contents, frequency_tree):
-    reads_to_be_analyzed = 3
-    reads_per_random_index = 50
+    reads_to_be_analyzed = 10000
     outputs = []
     for i in range(len(contents)):
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
