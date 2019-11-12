@@ -49,7 +49,7 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
     for i in range(len(contents)):
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         print("############# BEGINING SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
-        args = shlex.split("/software/bowtie2/bowtie2 -x " +  bowtie_index + " --sra-acc " + contents[i][1] + " --sample-sra " + str(reads_to_be_analyzed) + " --threads 4 ")
+        args = shlex.split("/software/bowtie2/bowtie2 -x " +  bowtie_index + " --sra-acc " + contents[i][1] + " --sample-sra " + str(reads_to_be_analyzed) + " --threads 4 --no-head -S tmp.sam")
         print("ARGS = " + str(args))
         subprocess.Popen(args)
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
