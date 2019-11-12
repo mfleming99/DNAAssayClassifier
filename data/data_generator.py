@@ -55,8 +55,6 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
         p.wait()
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         data = parseFile("temp.sam", frequency_tree)
-        args = shlex.split("rm temp.sam")
-        subprocess.call(args, shell=True)
         outputs.append(data)
         for value in data:
             contents[i].append(value)
