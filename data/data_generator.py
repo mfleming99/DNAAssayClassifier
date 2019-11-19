@@ -34,7 +34,7 @@ def handle_gtf(file):
                     frequency_trees[chr][0].append(int(line[3]))
                     frequency_trees[chr][1].append(int(line[4]))
             except:
-#                print("This shouldn't happen - GTF handleing is wrong")
+                print("This shouldn't happen - GTF handleing is wrong")
         except:
             pass
             #print("Chromosome was non-integer")
