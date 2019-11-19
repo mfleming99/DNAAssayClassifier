@@ -20,7 +20,7 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     pairings_wgs = make_pairings_for_scatter(data_lists_wgs)
     print("############# FINISHED SEQUENCING WGS", file=sys.stderr)
     print("############# FINSHING WGS", file=sys.stderr)
-    with open("data_output_wgs.csv","w+") as my_csv:
+    with open("output/data_output_wgs.csv","w+") as my_csv:
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerows(data)
 
@@ -33,7 +33,7 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     pairings_srna = make_pairings_for_scatter(data_lists_srna)
     print("############# FINISHED SEQUENCING SMALL RNA", file=sys.stderr)
     print("############# FINSHING SMALL RNA", file=sys.stderr)
-    with open("data_output_srna.csv","w+") as my_csv:
+    with open("output/data_output_srna.csv","w+") as my_csv:
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerows(data)
 
@@ -46,7 +46,7 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     pairings_mrna = make_pairings_for_scatter(data_lists_mrna)
     print("############# FINISHED SEQUENCING mRNA", file=sys.stderr)
     print("############# FINSHING mRNA", file=sys.stderr)
-    with open("data_output_mrna.csv","w+") as my_csv:
+    with open("output/data_output_mrna.csv","w+") as my_csv:
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerows(data)
 
