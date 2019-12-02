@@ -1,3 +1,6 @@
 *.bt2
 *.sam
-*.csv
+*.pyc
+*/.DS_Store
+*.gtf
+*.cvs
