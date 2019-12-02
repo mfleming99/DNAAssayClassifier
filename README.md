@@ -1,7 +1,7 @@
 ## DNAAssayClassifier
 This is Max Fleming and Udit Sharma's independent study project for Fall 2019, where we will be building a classier that can identify the assay of an unsequenced DNA read based of the result of Bowtie2 and other DNA analysis tools. This project is split up in to two parts, data generation and model training.
 
-#Data Generation
+# Data Generation
 All the functionnality needed to generate data is under our `data` folder. 
 In order to generate your own data using our functionality you will need the following dependancies.
 
