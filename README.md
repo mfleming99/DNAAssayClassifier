@@ -19,7 +19,7 @@ You can get prebuild Bowtie indexes from the [Bowtie2 Manual](http://bowtie-bio.
 >(ftp://ftp.ensembl.org/pub/release-98/gtf/homo_sapiens/Homo_sapiens.GRCh38.98.gtf.gz)
 
 Getting SRA accessions is a little bit harder than the index and gtf. We used [SRAdb](https://bioconductor.org/packages/release/bioc/html/SRAdb.html)
- to find accessions that we would want to use. We also included the accessions we used under `data\sample_accessions` folder in this repo. 
+ to find accessions that we would want to use. We also included the accessions we used under `data/sample_accessions` folder in this repo. 
 
 The output will be three files: `data_output_mrna.csv`, `data_output_srna.csv` and `data_output_wgs.csv`. These files contain data about the SRA accesssions that it was passed. 
 
