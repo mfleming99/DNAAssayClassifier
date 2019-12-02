@@ -1,7 +1,7 @@
-## DNAAssayClassifier
+# DNAAssayClassifier
 This is Max Fleming and Udit Sharma's independent study project for Fall 2019, where we will be building a classier that can identify the assay of an unsequenced DNA read based of the result of Bowtie2 and other DNA analysis tools. This project is split up in to two parts, data generation and model training.
 
-# Data Generation
+## Data Generation
 All the functionnality needed to generate data is under our `data` folder. 
 In order to generate your own data using our functionality you will need the following dependancies.
 
@@ -21,3 +21,7 @@ Getting SRA accessions is a little bit harder than the index and gtf, however we
  to find accessions that we would want to use. You could also do this manually by pursuing the SRA database. We also included the accessions we used under `data\sample_accessions` folder in this repo. 
 
 The output will be three files: `data_output_mrna.csv`, `data_output_srna.csv` and `data_output_wgs.csv`. These files contain data about the SRA accesssions that it was passed. 
+
+## Model 
+
+There is an intervative version of our model avalibly on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. 
