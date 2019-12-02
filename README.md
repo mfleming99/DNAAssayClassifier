@@ -12,10 +12,10 @@ After installing depencancies, you will be able to generate data using the follo
  
 >`python3 driver.py --index "location of your Bowtie index" --gtf "Location of your gene transfer format file" --mrna "List of your mRNA accessions" --srna "List of your sRNA accessions" --wgs "List of your WGS accessions"`
 
-You can get prebuild Bowtie indexes from the [Bowtie2 Manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) . We used *H. sapiens*, NCBI GRCh38 (Download link below) as our reference genome. We used this (Download link below) gene transfer format file, however as long as your GTF matches your reference genome, and GTF should work 
+You can get prebuild Bowtie indexes from the [Bowtie2 Manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) . We used *H. sapiens*, NCBI GRCh38 (Download link below) as our reference genome. We used this (Download link below) gene transfer format file, however as long as your GTF matches your reference genome, and GTF should should lead to a correct gene annotation percentage. 
 
-(ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_genbank/Eukaryotes/vertebrates_mammals/Homo_sapiens/GRCh38/seqs_for_alignment_pipelines/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.bowtie_index.tar.gz)
-(ftp://ftp.ensembl.org/pub/release-98/gtf/homo_sapiens/Homo_sapiens.GRCh38.98.gtf.gz)
+>(ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_genbank/Eukaryotes/vertebrates_mammals/Homo_sapiens/GRCh38/seqs_for_alignment_pipelines/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.bowtie_index.tar.gz)
+>(ftp://ftp.ensembl.org/pub/release-98/gtf/homo_sapiens/Homo_sapiens.GRCh38.98.gtf.gz)
 
 Getting SRA accessions is a little bit harder than the index and gtf, however we used __ and ___
  to find accessions that we would want to use. You could also do this manually by pursuing the SRA database. We also included the accessions we used under `data\sample_accessions` folder in this repo. 
