@@ -19,6 +19,12 @@ def parseFile(file, frequency_tree):
     read_frequency = 0
     read_lengths_average = 0
     num_chromosomes = 0
+    num_a = 0
+    num_c = 0
+    num_g = 0
+    num_t = 0
+
+
     print("############# OPENING SAM FILE", file=sys.stderr)
     with open(file, 'rt') as fp:
         line = fp.readline()
@@ -94,10 +100,6 @@ def parseString(txt, frequency_tree):
     read_frequency = 0
     read_lengths_average = 0
     num_chromosomes = 0
-    num_a = 0
-    num_c = 0
-    num_g = 0
-    num t = 0
 
     lines = spliter.split(txt)
     #Itterating though everyline
@@ -112,7 +114,6 @@ def parseString(txt, frequency_tree):
         read = subline[9]
         read_lengths_count += 1
         read_lengths_total += len(read)
-        num_a +=
         chromosome = getChromosome(subline[2])
         if chromosome != -1:
             read_positions[chromosome].append(int(subline[3]))
