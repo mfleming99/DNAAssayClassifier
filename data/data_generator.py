@@ -56,8 +56,9 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         data = parseFile("temp.sam", frequency_tree)
         outputs.append(data)
-        for value in data:
-            contents[i].append(value)
+        if len(data) > 0:
+            for value in data:
+                contents[i].append(value)
     return outputs
 
 # def get_spots(sra_label):
