@@ -22,9 +22,9 @@ def parseFile(file, frequency_tree):
     print("############# OPENING SAM FILE", file=sys.stderr)
     with open(file, 'rt') as fp:
         line = fp.readline()
-        line = fp.readline()
         while line:
             subline = line_spliter.split(line)
+            line = fp.readline()
             if (int(subline[1]) & 4 == 4):
                 unmatched_reads += 1
             elif (int(subline[1]) & 16 == 16):
