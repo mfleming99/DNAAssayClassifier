@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 import numpy as np
 import sys
 import re
@@ -34,6 +34,11 @@ def parseFile(file, frequency_tree):
             read = subline[9]
             read_lengths_count += 1
             read_lengths_total += len(read)
+            bases_count = Counter(read)
+            num_a += bases_count["A"]
+            num_c += bases_count["C"]
+            num_g += bases_count["G"]
+            num_t += bases_count["T"]
             chromosome = getChromosome(subline[2])
             if chromosome != -1:
                 read_positions[chromosome].append(int(subline[3]))
@@ -68,7 +73,7 @@ def parseFile(file, frequency_tree):
             min_position_difference = np.amin(position_differences)
         except:
             return None
-        return [gene_annotation_percent, read_lengths_average, read_frequency, std_of_pos_diff, mean_of_pos_diffs, num_chromosomes, max_position_difference, min_position_difference]
+        return [gene_annotation_percent, read_lengths_average, read_frequency, std_of_pos_diff, mean_of_pos_diffs, num_chromosomes, max_position_difference, min_position_difference, num_a/ read_lengths_total, num_c/ read_lengths_total, num_g / read_lengths_total, num_t / read_lengths_total]
 
 
 
@@ -89,6 +94,10 @@ def parseString(txt, frequency_tree):
     read_frequency = 0
     read_lengths_average = 0
     num_chromosomes = 0
+    num_a = 0
+    num_c = 0
+    num_g = 0
+    num t = 0
 
     lines = spliter.split(txt)
     #Itterating though everyline
@@ -103,6 +112,7 @@ def parseString(txt, frequency_tree):
         read = subline[9]
         read_lengths_count += 1
         read_lengths_total += len(read)
+        num_a +=
         chromosome = getChromosome(subline[2])
         if chromosome != -1:
             read_positions[chromosome].append(int(subline[3]))
