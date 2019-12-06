@@ -56,7 +56,7 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
         print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
         data = parseFile("temp.sam", frequency_tree)
         outputs.append(data)
-        if len(data) > 0:
+        if data is not None:
             for value in data:
                 contents[i].append(value)
     return outputs
