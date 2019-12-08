@@ -60,7 +60,7 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
 #         arr = [contents[0], contents[1]]
 #         arr += data
             outputs.append(data)
-        catch:
+        except:
             continue
         if os.path.exists("temp.sam"):
             os.remove("temp.sam")
