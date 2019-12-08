@@ -1,5 +1,6 @@
 from parser import parseFile #COMMENT THIS LINE OUT IF YOU WANT TO RUN PARSER AS MAIN
 from ncls import NCLS
+import os
 from collections import defaultdict
 import sys
 import subprocess
@@ -58,6 +59,8 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
 #         arr = [contents[0], contents[1]]
 #         arr += data
         outputs.append(data)
+        if os.path.exists("temp.sam"):
+            os.remove("temp.sam")
     return outputs
 
 # def get_spots(sra_label):
