@@ -23,7 +23,8 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     with open("output/data_output_wgs.csv","w+") as my_csv:
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerow(["Count", "SRA Accession", "Gene Annotation Percent", "Average Read Length", "Read Frequency", "STD of Position Difference", "Mean of Position Difference", "Number of Chromosoms", "Max Position Difference", "Min Position Difference", "Percent A", "Percent C", "Percent G", "Percent T"])
-        csvWriter.writerows(output_data_wgs)
+        csvWriter.writerows(map(lambda x: [x],output_data_wgs))
+    my_csv.close()
 
 #    print("############# STARTING HANDLING CSV SMALL RNA", file=sys.stderr)
     data = handle_csv(csv_file_srna)
@@ -37,7 +38,8 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     with open("output/data_output_srna.csv","w+") as my_csv:
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerow(["Count", "SRA Accession", "Gene Annotation Percent", "Average Read Length", "Read Frequency", "STD of Position Difference", "Mean of Position Difference", "Number of Chromosoms", "Max Position Difference", "Min Position Difference", "Percent A", "Percent C", "Percent G", "Percent T"])
-        csvWriter.writerows(output_data_srna)
+        csvWriter.writerows(map(lambda x: [x],output_data_srna))
+    my_csv.close()
 
 #    print("############# STARTING HANDLING CSV mRNA", file=sys.stderr)
     data = handle_csv(csv_file_mrna)
@@ -52,7 +54,7 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerow(["Count", "SRA Accession", "Gene Annotation Percent", "Average Read Length", "Read Frequency", "STD of Position Difference", "Mean of Position Difference", "Number of Chromosoms", "Max Position Difference", "Min Position Difference", "Percent A", "Percent C", "Percent G", "Percent T"])
         csvWriter.writerows(map(lambda x: [x],output_data_mrna))
-
+    my_csv.close()
 #     print("############# MAKING SCATTERPLOTS")
 #     make_each_scatterplot(pairings_wgs, pairings_srna, pairings_mrna)
 #     print("DONE")
