@@ -51,7 +51,7 @@ def main(bowtie_index, csv_file_wgs, csv_file_srna, csv_file_mrna, gtf_file):
     with open("output/data_output_mrna.csv","w+") as my_csv:
         csvWriter = csv.writer(my_csv,delimiter=',')
         csvWriter.writerow(["Count", "SRA Accession", "Gene Annotation Percent", "Average Read Length", "Read Frequency", "STD of Position Difference", "Mean of Position Difference", "Number of Chromosoms", "Max Position Difference", "Min Position Difference", "Percent A", "Percent C", "Percent G", "Percent T"])
-        csvWriter.writerows(output_data_mrna)
+        csvWriter.writerows(map(lambda x: [x],output_data_mrna))
 
 #     print("############# MAKING SCATTERPLOTS")
 #     make_each_scatterplot(pairings_wgs, pairings_srna, pairings_mrna)
