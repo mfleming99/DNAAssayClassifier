@@ -55,10 +55,13 @@ def run_bowtie(bowtie_index, contents, frequency_tree):
         p = subprocess.Popen(args)
         p.wait()
 #        print("############# FINISHED SEQUENCING " + str(i + 1) + " OF " + str(len(contents)) + " #############", file = sys.stderr)
-        data = parseFile("temp.sam", frequency_tree)
+        try:
+            data = parseFile("temp.sam", frequency_tree)
 #         arr = [contents[0], contents[1]]
 #         arr += data
-        outputs.append(data)
+            outputs.append(data)
+        catch:
+            continue
         if os.path.exists("temp.sam"):
             os.remove("temp.sam")
     return outputs
