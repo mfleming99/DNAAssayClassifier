@@ -1,12 +1,15 @@
 import argparse as ap
 import pickle
 import sklearn
+import matplotlib.pyplot as plt
+from sklearn.metrics import plot_confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import metrics
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import cross_val_score
 from handle_data import getMatrix
+from sklearn.decomposition import PCA
 import numpy as np
 
 def standardize(X):
@@ -18,8 +21,6 @@ def standardize(X):
     for i in range(X.shape[1]):
         std[i] = np.nanstd(features[i])
         means[i] = np.nanmean(features[i])
-    #print(means)
-    #print(std)
     for i in range(X.shape[1]):
         X[:, i] = np.subtract(X[:, i], means[i])
         if std[i] > 0:
@@ -46,25 +47,26 @@ def main(args):
     srna = args.srna
     X,y = getMatrix(wgs, srna, mrna)
     X = standardize(X)
-#    print(X,y)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
-#`    print(X_train.shape, y_train.shape)
-#   print(X_test.shape, y_test.shape)
-    print(y_test)
-    forest = RandomForestClassifier(max_depth = 4)
+    forest = RandomForestClassifier(max_depth = 3, n_estimators = 80)
     forest.fit(X_train, y_train)
-#    knn = KNeighborsClassifier(n_neighbors=3)
-#    knn.fit(X_train, y_train)
     scores = cross_val_score(forest, X_train, y_train, cv=10, scoring='accuracy')
-    #pickle.dump(knn, open('first_knn', 'wb'))
-    print(scores)
-    pickle.dump(forest, open('third_forest', 'wb'))
-    #prediction_score = knn.score(X_test, y_test)
-    #predict(X_test,knn)
-    prediction_score = forest.score(X_test, y_test)
-    print(prediction_score)
-    print(forest.feature_importances_)
-#    print(forest.decision_path.feature_importances_)
+    pickle.dump(forest, open('forest', 'wb'))
+    pickle.dump(scores, open('forest__scores', 'wb'))
+    test_acc = forest.score(X_test, y_test)
+    print(str(i) + ',' + str(test_acc))    
+    pickle.dump(X_train, open('x_train', 'wb'))
+    pickle.dump(X_test, open('x_test', 'wb'))
+    pickle.dump(y_train, open('y_train', 'wb'))
+    pickle.dump(y_test, open('y_test', 'wb'))
+    class_names = ['wgs', 'mrna', 'srna']
+    pca = PCA(n_components= i + 5)
+    X_t = pca.fit_transform(X_test)
+    X = pca.fit_transform(X_train)
+    knn = KNeighborsClassifier(n_neighbors=3)
+    knn.fit(X, y_train)
+    pickle.dump(knn, open('knn', 'wb'))  
+    test_acc = knn.score(X_t, y_test)
 
 if __name__ == '__main__':
     args = get_args()
