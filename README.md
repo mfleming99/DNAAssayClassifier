@@ -25,4 +25,4 @@ The output will be three files: `data_output_mrna.csv`, `data_output_srna.csv` a
 
 ## Model 
 
-There is an intervative version of our model avalibly on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. The model avaible on the UI is a random forest. It acheived a test accuracy of 91%
+There is an interactive version of our model avalible on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. The model avaible on the UI is a random forest, and it acheived a test accuracy of 91%
