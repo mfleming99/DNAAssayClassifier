@@ -2,7 +2,7 @@
 This is Max Fleming and Udit Sharma's independent study project for Fall 2019, where we will be building a classier that can identify the assay of an unsequenced Human DNA read based of the result of Bowtie2 and other DNA analysis tools. This project is split up in to two parts, data generation and model training.
 
 ## Data Generation
-All the functionnality needed to generate data is under our `data` folder. 
+All the functionality needed to generate data is under our `data` folder. 
 In order to generate your own data using our functionality you will need the following dependancies.
 
 1. [Bowtie2](https://github.com/BenLangmead/bowtie2/tree/bt2_cxx11) We used this branch which enables random sampling of SRA files. 
@@ -26,3 +26,9 @@ The output will be three files: `data_output_mrna.csv`, `data_output_srna.csv` a
 ## Model 
 
 There is an interactive version of our model avalible on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. The model avaible on the UI is a random forest, and it acheived a test accuracy of 91%
+
+Both a KNN and the random forest model available on the bt2-ui can be created by running the command:
+
+> python3 main.py --wgs classifier_data/wgs2.csv --mrna classifier_data/mrna2.csv --srna classifier_data/srna2.csv
+
+The output will be the scores of the two models, and a pickle file named forest containing the random forest, as well as a pickle file named knn containing the knn model.
