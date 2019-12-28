@@ -1,4 +1,4 @@
-# DNAAssayClassifier
+# DNA Assay Classifier
 This is Max Fleming and Udit Sharma's independent study project for Fall 2019, where we will be building a classier that can identify the assay of an unsequenced Human DNA read based of the result of Bowtie2 and other DNA analysis tools. This project is split up in to two parts, data generation and model training.
 
 ## Data Generation
@@ -25,4 +25,4 @@ The output will be three files: `data_output_mrna.csv`, `data_output_srna.csv` a
 
 ## Model 
 
-There is an intervative version of our model avalibly on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. 
+There is an intervative version of our model avalibly on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. The model avaible on the UI is a random forest. It acheived a test accuracy of 91%
