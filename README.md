@@ -3,16 +3,16 @@ This is Max Fleming and Udit Sharma's independent study project for Fall 2019, w
 
 ## Data Generation
 All the functionality needed to generate data is under our `data` folder. 
-In order to generate your own data using our functionality you will need the following dependancies.
+In order to generate your own data using our functionality you will need the following dependencies.
 
 1. [Bowtie2](https://github.com/BenLangmead/bowtie2/tree/bt2_cxx11) We used this branch which enables random sampling of SRA files. 
-2. [NCLS](https://github.com/biocore-ntnu/ncls) This is the interval tree implimentation we used to implement our gene annotation percentage.
+2. [NCLS](https://github.com/biocore-ntnu/ncls) This is the interval tree implementation we used to implement our gene annotation percentage.
 
-After installing depencancies, you will be able to generate data using the following command.
+After installing dependencies, you will be able to generate data using the following command.
  
 >`python3 driver.py --index "location of your Bowtie index" --gtf "Location of your gene transfer format file" --mrna "List of your mRNA accessions" --srna "List of your sRNA accessions" --wgs "List of your WGS accessions"`
 
-You can get prebuild Bowtie indexes from the [Bowtie2 Manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) . We used *H. sapiens*, NCBI GRCh38 (Download link below) as our reference genome. We used this (Download link below) gene transfer format file, however as long as your gtf matches your reference genome, and gtf should should lead to a correct gene annotation percentage. 
+You can get prebuilt Bowtie indexes from the [Bowtie2 Manual](http://bowtie-bio.sourceforge.net/bowtie2/manual.shtml) . We used *H. sapiens*, NCBI GRCh38 (Download link below) as our reference genome. We used this (Download link below) gene transfer format file, however as long as your gtf matches your reference genome, and gtf should lead to a correct gene annotation percentage. 
 
 >(ftp://ftp.ncbi.nlm.nih.gov/genomes/archive/old_genbank/Eukaryotes/vertebrates_mammals/Homo_sapiens/GRCh38/seqs_for_alignment_pipelines/GCA_000001405.15_GRCh38_no_alt_analysis_set.fna.bowtie_index.tar.gz)
 
@@ -21,11 +21,11 @@ You can get prebuild Bowtie indexes from the [Bowtie2 Manual](http://bowtie-bio.
 Getting SRA accessions is a little bit harder than the index and gtf. We used [SRAdb](https://bioconductor.org/packages/release/bioc/html/SRAdb.html)
  to find accessions that we would want to use. We also included the accessions we used under `data/sample_accessions` folder in this repo. 
 
-The output will be three files: `data_output_mrna.csv`, `data_output_srna.csv` and `data_output_wgs.csv`. These files contain data about the SRA accesssions that it was passed. 
+The output will be three files: `data_output_mrna.csv`, `data_output_srna.csv` and `data_output_wgs.csv`. These files contain data about the SRA accessions that it was passed. 
 
 ## Model 
 
-There is an interactive version of our model avalible on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. The model avaible on the UI is a random forest, and it acheived a test accuracy of 91%
+There is an interactive version of our model available on the [bt2-ui](http://bit.ly/bt2ui-beta). Here you can input an accession and our model will predict the assay of the model. The model available on the UI is a random forest, and it achieved a test accuracy of 91%
 
 Both a KNN and the random forest model available on the bt2-ui can be created by running the command:
 
